@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Current token {{ current_wallet.token_name }}</h1>
+    <h4>Current balance <strong>{{ current_wallet.token_amount }}</strong></h4>
+    <form method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="mb-3">
+                {{ field.label }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="invalid-feedback">
+                        {% for error in field.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        {% if error %}
+            <p><strong>{{ error }}</strong></p>
+        {% endif %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="{% url 'my-wallets' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <a class="btn btn-primary" href="{% url 'create-transaction' %}">Ask for transaction</a>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            {% for item in transactions %}
+                <div class="alert {% if item.accepted is None %}alert-primary{% elif item.accepted == True %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+                    <strong>{{ item.token_name }}</strong> - {{ item.token_amount }} -
+                    {% if item.accepted is None %}
+                        Waiting for confirmation
+                        <a href="{% url 'delete-transaction' item.id %}" class="float-right">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                    {% elif item.accepted == True %}
+                        Accepted
+                    {% else %}
+                        Rejected
+                    {% endif %}
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

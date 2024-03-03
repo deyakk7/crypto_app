@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    {% for user in users %}
+        <div class="card">
+            <div class="card-body m-3">
+                <a href="{% url 'admin-wallets' user.id %}">
+                    <h5 class="card-title">{{ user.username }}</h5>
+                    <p class="card-text">{{ user.email }}</p>
+                </a>
+
+            </div>
+        </div>
+
+    {% endfor %}
+{% endblock %}

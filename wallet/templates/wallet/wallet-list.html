@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Wallet Tokens</h2>
+    <div class="row">
+        {% for wallet in wallets %}
+            <div class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ wallet.token_name }}</h5>
+                        <p class="card-text">Balance: {{ wallet.token_amount}}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'wallet-converter' wallet.id %}" class="btn btn-primary">Convert</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col">
+                <p>No tokens found in the wallet.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
